@@ -1,0 +1,30 @@
+<%= render 'admin/shared/product_sub_menu' %>
+<div class='toolbar'>
+  <ul class='actions'>
+    <li>
+      <%= button_link_to t("new_promotion"), new_admin_promotion_url, :icon => 'add' %>
+    </li>
+  </ul>
+  <br class='clear' />
+</div>
+
+<h1><%= t("listing_promotions") %></h1>
+
+<table class="index">
+  <thead>
+    <tr>
+      <th><%= 'Name' %></th>
+      <th><%= 'Products Count'%></th>
+      <th><%= t(:action) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @promotions.each do |promotion| %>
+      <tr id="<%= dom_id promotion %>">
+        <td><%= promotion.name %></td>
+        <td><%= promotion.products.count %></td>
+        <td><%= link_to_with_icon('edit', t("edit"), edit_admin_promotion_url(promotion)) %> &nbsp; <%= link_to_delete promotion, :url => admin_promotion_url(promotion) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

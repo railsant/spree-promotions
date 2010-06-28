@@ -1,0 +1,42 @@
+<%= render 'admin/shared/product_sub_menu' %>
+
+<h1><%= t("editing_promotion") %></h1>
+<%= error_messages_for :promotion %>
+
+<% form_for(@promotion, :url => admin_promotion_url, :html => { :method => :put }) do |f| %>
+  <%= render :partial => "form", :locals => { :f => f } %>
+
+  <%= submit_tag t("update") %> <%= t("or") %> <%= link_to t("cancel"), admin_promotions_url %>
+<% end %>
+<br /><br />
+
+
+<div id="add-line-item">
+  <fieldset>
+    <legend><%= t('add_product') %></legend>
+    <div style="float:left;width:40%;margin-right:5%;">
+      <%= label_tag :add_product_name, t("name_or_sku") %>
+      <%= text_field_tag :add_product_name,  {}, :class => 'fullwidth title'  %>
+      <%= hidden_field_tag :add_variant_id %>
+    </div>
+    <div style="float: left; width: 15%; padding-top: 17px;">
+      <%= button_link_to_remote t("add"),
+                         {:url => admin_add_product_to_promotion_url(@promotion),
+                         :method => :post,
+                         :with => "'variant_id=' + $('#add_variant_id').val()",
+                         :before => "if($('#add_product_id').val()==''){ return false; }",
+                         :after => "$('#add_product_name').val('');$('#add_product_id').val('');",
+                         :update => "products-table-wrapper"}, :icon => 'add' %>
+    </div>
+
+  </fieldset>
+</div>
+
+<div id="products-table-wrapper">
+  <%= render :partial => "products_table", :locals => {:promotion => @promotion} %>
+</div>
+
+<% content_for :head do %>
+  <%= javascript_include_tag 'admin/orders/edit.js' %>
+  <%= stylesheet_link_tag 'admin/edit_orders.css' %>
+<% end %>

@@ -1,0 +1,7 @@
+<%- locals = {:f => f} -%>
+<% f.field_container :name do %>
+  <%= f.label :name, t("name") %><br />
+  <%= f.text_field :name, :class => 'title' %>
+  <%= error_message_on :promotion, :name %>
+<% end %>
+

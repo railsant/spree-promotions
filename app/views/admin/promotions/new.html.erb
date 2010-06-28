@@ -1,0 +1,10 @@
+<%= render 'admin/shared/product_sub_menu' %>
+
+<h1><%= t("new_promotion") %></h1>
+<%= error_messages_for :promotion %>
+
+<% form_for(:promotion, :url => admin_promotions_url) do |f| %>
+  <%= render :partial => "form", :locals => { :f => f } %>
+  <%= submit_tag t("actions.create") %> <%= t("or") %> <%= link_to t("actions.cancel"), admin_promotions_url %>
+<% end %>
+

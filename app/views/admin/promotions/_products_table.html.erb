@@ -1,0 +1,20 @@
+<table class="index">
+  <thead>
+    <tr>
+      <th><%= t('sku') %></th>
+      <th><%= t('name') %></th>
+      <th><%= 'Action' %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% promotion.products.each do |product| %>
+      <tr id="<%= dom_id product %>">
+        <td><%= product.sku %></td>
+        <td><%= product.name %></td>
+        <td width="70px">
+          <%= link_to_delete promotion, {:url => admin_remove_product_from_promotion_url(promotion, :product_id => product.id), :success => "function(r){ jQuery('##{dom_id product}').fadeOut('hide'); }"} %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
